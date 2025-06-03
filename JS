@@ -1,0 +1,29 @@
+document.addEventListener("DOMContentLoaded", function () {
+    const board = document.getElementById("chessboard");
+    const pieces = {
+        "♜": [0, 7], "♞": [1, 6], "♝": [2, 5], "♛": [3], "♚": [4],
+        "♟": [8, 9, 10, 11, 12, 13, 14, 15]
+    };
+
+    for (let row = 0; row < 8; row++) {
+        for (let col = 0; col < 8; col++) {
+            const square = document.createElement("div");
+            square.classList.add("square", (row + col) % 2 === 0 ? "white" : "black");
+            square.dataset.row = row;
+            square.dataset.col = col;
+
+            // Ajouter les pièces
+            Object.keys(pieces).forEach(piece => {
+                if (pieces[piece].includes(row * 8 + col)) {
+                    square.textContent = piece;
+                }
+            });
+
+            square.addEventListener("click", function () {
+                square.classList.toggle("selected");
+            });
+
+            board.appendChild(square);
+        }
+    }
+});
